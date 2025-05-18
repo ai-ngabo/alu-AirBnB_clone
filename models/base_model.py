@@ -25,12 +25,12 @@ class BaseModel:
             models.storage.new(self) # Add object to storage
 
     def save(self):
-        self.updated_at = datetimr.now()
+        self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
         obj_dict = self.__dict__.copy()
-        obj_dict["__class"] = self.__class__.__name__
+        obj_dict["__class__"] = self.__class__.__name__
         for key, value in self.__dict__.items():
             if key == 'created_at' or key == 'updated_at':
                 value = value.isoformat()
