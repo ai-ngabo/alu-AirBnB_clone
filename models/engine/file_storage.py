@@ -43,14 +43,10 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj):
-        """
-        Adds a new object to the storage.
-
-        Args:
-            obj (object): The object to be added to the storage.
-        """
-        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
-
+        """Adds a new object to storage"""
+        class_name = obj.__class__.__name__  # Get class name from object
+        key = f"{class_name}.{obj.id}"
+        self.__objects[key] = obj  # Store the actual object, not undefined 'value'
     def save(self):
         """
         Saves the objects in the storage to a JSON file.
@@ -68,13 +64,11 @@ class FileStorage:
             with open(self.__file_path, 'r') as file:
                 try:
                     obj_dict = json.load(file)
-
                     for key, value in obj_dict.items():
-                        class_name = value['__class__']
+                        class_name = value.pop['__class__', None]
+
                         if class_name in self.class_dict:
-                            self.__objects[key] = (
-                                self.class_dict[class_name](**value)
-                            )
+                            self.__objects[key] = self.class_dict[class_name](**value)  # Ensure value is passed correctly
 
                 except json.JSONDecodeError:
                     pass
