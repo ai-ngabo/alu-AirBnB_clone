@@ -72,8 +72,8 @@ class FileStorage:
                         
                             self.__objects[key] = self.class_dict[class_name](**value)
 
-            except json.JSONDecodeError:
-                pass
+                except json.JSONDecodeError:
+                    pass
 
         else:
             pass
