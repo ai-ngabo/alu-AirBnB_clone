@@ -19,6 +19,16 @@ class FileStorage:
     """
     A file storage system for storing and retrieving objects.
     """
+    class_dict = {
+                "BaseModel": BaseModel,
+                "User": User,
+                "State": State,
+                "City": City,
+                "Amenity": Amenity,
+                "Place": Place,
+                "Review": Review
+
+            }
 
     __file_path = "file.json"
     __objects = {}
@@ -45,16 +55,9 @@ class FileStorage:
         """
         Saves the objects in the storage to a JSON file.
         """
-        obj_dict = {}
-
-        for key, value in self.__objects.items():
-            obj_dict[key] = value.to_dict()
-
-        try:
-            with open(self.__file_path, 'w') as file:
-                json.dump(obj_dict, file, indent=2)
-        except FileNotFoundError:
-            pass
+        obj_dict = {key: value.to_dict() for key, value in self.__objects.items()}
+        with open(self.__file_path, "w") as file:
+            json.dump(obj_dict, file, indent=2)
 
     def reload(self):
         """
