@@ -60,7 +60,7 @@ class FileStorage:
         """
         Reloads the objects from the JSON file into the storage.
         """
-        if os.path.exists(self.__filr_path):
+        if os.path.exists(self.__file_path):
         
             with open(self.__file_path, 'r') as file:
                 try:
