@@ -1,1 +1,8 @@
-{}
+{
+  "BaseModel.40bb06ec-dd6d-44cd-a967-30d6ed284aa6": {
+    "__class__": "BaseModel",
+    "id": "40bb06ec-dd6d-44cd-a967-30d6ed284aa6",
+    "created_at": "2025-05-20T22:51:26.239086",
+    "updated_at": "2025-05-20T22:51:26.239122"
+  }
+}
