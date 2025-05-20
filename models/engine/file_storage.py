@@ -61,7 +61,7 @@ class FileStorage:
         Reloads the objects from the JSON file into the storage.
         """
         if os.path.exists(self.__file_path):
-        
+
             with open(self.__file_path, 'r') as file:
                 try:
                     obj_dict = json.load(file)
@@ -69,8 +69,9 @@ class FileStorage:
                     for key, value in obj_dict.items():
                         class_name = value['__class__']
                         if class_name in self.class_dict:
-                        
-                            self.__objects[key] = self.class_dict[class_name](**value)
+                            self.__objects[key] = (
+                                self.class_dict[class_name](**value)
+                            )
 
                 except json.JSONDecodeError:
                     pass
