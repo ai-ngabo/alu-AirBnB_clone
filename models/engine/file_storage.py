@@ -65,7 +65,7 @@ class FileStorage:
                 try:
                     obj_dict = json.load(file)
                     for key, value in obj_dict.items():
-                        class_name = value.pop['__class__', None]
+                        class_name = value.pop('__class__', None)
 
                         if class_name in self.class_dict:
                             self.__objects[key] = self.class_dict[class_name](**value)  # Ensure value is passed correctly
