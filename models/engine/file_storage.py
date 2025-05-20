@@ -4,6 +4,7 @@ This module defines a FileStorage class that stores
 and retrieves objects to and from a JSON file.
 """
 
+import os
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -29,7 +30,7 @@ class FileStorage:
         Returns:
             dict: A dictionary of all objects currently stored.
         """
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """
@@ -59,13 +60,20 @@ class FileStorage:
         """
         Reloads the objects from the JSON file into the storage.
         """
-        try:
-            with open(FileStorage.__file_path, 'r') as file:
-                obj_dict = json.load(file)
+        if os.path.exists(self.__filr_path):
+        
+            with open(self.__file_path, 'r') as file:
+                try:
+                    obj_dict = json.load(file)
 
-                for key, value in obj_dict.items():
-                    self.__objects[key] = eval(
-                        f"{value['__class__']}(**{value})")
+                    for key, value in obj_dict.items():
+                        class_name = value['__class__']
+                        if class_name in self.class_dict:
+                        
+                            self.__objects[key] = self.class_dict[class_name](**value)
 
-        except FileNotFoundError:
+            except json.JSONDecodeError:
+                pass
+
+        else:
             pass
